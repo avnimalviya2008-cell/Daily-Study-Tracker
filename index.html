@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daily Study Target Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>📘 Daily Study Target Tracker</h1>
+  <div class="sub">Programming targets, points, and progress — all in one place.</div>
+
+  <div class="stats">
+    <div class="stat"><b id="stPoints">0</b><span>Total Points</span></div>
+    <div class="stat"><b id="stStreak">0</b><span>Day Streak</span></div>
+    <div class="stat"><b id="stPct">0%</b><span>Completion Rate</span></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title" style="margin-top:0">➕ Add a Target</div>
+    <div class="addForm">
+      <input id="tTitle" placeholder="e.g. Solve 5 array problems / Watch OOP lecture">
+      <div class="row">
+        <input id="tDate" type="date">
+        <input id="tTime" type="time" title="Deadline time (for notification)">
+      </div>
+      <div class="row">
+        <select id="tPoints">
+          <option value="5">Easy – 5 pts</option>
+          <option value="10" selected>Medium – 10 pts</option>
+          <option value="20">Hard – 20 pts</option>
+        </select>
+        <button onclick="addTarget()">Add Target</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🎯 Today & Upcoming</div>
+  <div id="list" class="card"></div>
+
+  <div class="section-title">📊 Progress Report</div>
+  <div class="card">
+    <div>Overall completion</div>
+    <div class="bar"><div id="progBar" style="width:0%"></div></div>
+    <div style="margin-top:10px;font-size:.85rem;color:var(--muted)" id="progText"></div>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <button class="ghost" onclick="enableNotifs()">🔔 Enable Deadline Alerts</button>
+    <div id="notifStatus" style="font-size:.75rem;color:var(--muted);margin-top:6px;"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
