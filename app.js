@@ -14,8 +14,9 @@ function addTarget(){
   const date = document.getElementById('tDate').value;
   const time = document.getElementById('tTime').value;
   const points = parseInt(document.getElementById('tPoints').value);
+  const subject = document.getElementById('tSubject').value;
   if(!title || !date){ alert('Please enter a target and date.'); return; }
-  targets.push({id:Date.now(), title, date, time, points, status:'pending', notified:false});
+  targets.push({id:Date.now(), title, date, time, points, subject, status:'pending', notified:false});
   document.getElementById('tTitle').value='';
   save(); render();
 }
@@ -55,6 +56,7 @@ function render(){
       <div class="info">
         <b>${escapeHtml(t.title)}</b>
         <span>${t.date}${t.time? ' · '+t.time:''}</span>
+        ${t.subject ? `<span class="tag">${t.subject}</span>` : ''}
       </div>
       <div class="pts">${t.status==='done' ? '+'+t.points : t.points} pts</div>
       <button class="ghost" style="padding:4px 8px;font-size:.7rem" onclick="removeTarget(${t.id})">✕</button>
@@ -62,6 +64,44 @@ function render(){
     list.appendChild(div);
   });
   updateStats();
+  renderCharts();
+}
+
+let subjectChartInstance, trendChartInstance;
+function renderCharts(){
+  if(typeof Chart === 'undefined') return;
+  const bySubject = {};
+  targets.filter(t=>t.status==='done').forEach(t=>{
+    const s = t.subject || 'Other';
+    bySubject[s] = (bySubject[s]||0) + t.points;
+  });
+  const subLabels = Object.keys(bySubject);
+  const subData = Object.values(bySubject);
+  const ctx1 = document.getElementById('subjectChart');
+  if(ctx1){
+    if(subjectChartInstance) subjectChartInstance.destroy();
+    subjectChartInstance = new Chart(ctx1, {
+      type: 'bar',
+      data: { labels: subLabels.length?subLabels:['No data yet'], datasets:[{label:'Points', data: subData.length?subData:[0], backgroundColor:'#4f46e5'}] },
+      options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+    });
+  }
+  const days=[], pointsByDay=[];
+  for(let i=6;i>=0;i--){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    days.push(key.slice(5));
+    pointsByDay.push(targets.filter(t=>t.status==='done' && t.date===key).reduce((s,t)=>s+t.points,0));
+  }
+  const ctx2 = document.getElementById('trendChart');
+  if(ctx2){
+    if(trendChartInstance) trendChartInstance.destroy();
+    trendChartInstance = new Chart(ctx2, {
+      type:'line',
+      data:{ labels: days, datasets:[{label:'Points earned', data: pointsByDay, borderColor:'#16a34a', backgroundColor:'rgba(22,163,74,.15)', fill:true, tension:.3}] },
+      options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+    });
+  }
 }
 
 function removeTarget(id){

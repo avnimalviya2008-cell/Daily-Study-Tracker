@@ -26,13 +26,19 @@
         <input id="tTime" type="time" title="Deadline time (for notification)">
       </div>
       <div class="row">
+        <select id="tSubject">
+          <option value="Java">Java</option>
+          <option value="C++">C++</option>
+          <option value="DSA">DSA</option>
+          <option value="Other">Other</option>
+        </select>
         <select id="tPoints">
           <option value="5">Easy – 5 pts</option>
           <option value="10" selected>Medium – 10 pts</option>
           <option value="20">Hard – 20 pts</option>
         </select>
-        <button onclick="addTarget()">Add Target</button>
       </div>
+      <button onclick="addTarget()">Add Target</button>
     </div>
   </div>
 
@@ -46,12 +52,19 @@
     <div style="margin-top:10px;font-size:.85rem;color:var(--muted)" id="progText"></div>
   </div>
 
+  <div class="section-title">📈 Points by Subject</div>
+  <div class="card"><canvas id="subjectChart" height="180"></canvas></div>
+
+  <div class="section-title">📈 Last 7 Days Trend</div>
+  <div class="card"><canvas id="trendChart" height="180"></canvas></div>
+
   <div class="card" style="text-align:center">
     <button class="ghost" onclick="enableNotifs()">🔔 Enable Deadline Alerts</button>
     <div id="notifStatus" style="font-size:.75rem;color:var(--muted);margin-top:6px;"></div>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

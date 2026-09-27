@@ -9,10 +9,13 @@ A lightweight, no-backend web app to track daily programming study targets — s
 - 🔥 Day-streak tracking for consistency
 - 📊 Progress report with completion percentage
 - 🔔 Browser notifications when a target's deadline passes without being marked done
+- 🏷️ Subject tags (Java, C++, DSA, Other) on every target
+- 📈 Points-by-subject bar chart and a 7-day points trend line chart
 - 💾 Data persists locally via `localStorage` — no server needed
 
 ## Tech Stack
 - HTML, CSS, vanilla JavaScript
+- Chart.js for data visualization
 - Browser `Notification` API
 - `localStorage` for persistence
 
@@ -23,8 +26,8 @@ Just open `index.html` in a browser — no build step or dependencies required.
 Enable GitHub Pages in repo settings to get a live link here.
 
 ## Roadmap / planned improvements
-- [ ] Subject/category tags (Java, C++, DSA, etc.)
-- [ ] Charts for weekly trends (Chart.js)
+- [x] Subject/category tags (Java, C++, DSA, etc.)
+- [x] Charts for weekly trends (Chart.js)
 - [ ] Light/dark mode toggle
 - [ ] Export/import progress as JSON
 - [ ] Backend sync (Firebase) for multi-device use

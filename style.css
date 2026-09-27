@@ -45,6 +45,8 @@ button.ghost{background:transparent;color:var(--accent);border:1px solid var(--a
 .badge.missed{background:var(--red);}
 .pts{font-size:.75rem;color:var(--accent);font-weight:700;white-space:nowrap;}
 .empty{color:var(--muted);text-align:center;padding:20px;font-size:.9rem;}
+.tag{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:20px;background:var(--accent);color:#fff;margin-left:6px;}
+canvas{max-width:100%;}
 .section-title{font-size:.95rem;font-weight:700;margin:22px 0 8px;}
 .bar{height:8px;background:var(--border);border-radius:5px;overflow:hidden;margin-top:6px;}
 .bar div{height:100%;background:var(--green);}
